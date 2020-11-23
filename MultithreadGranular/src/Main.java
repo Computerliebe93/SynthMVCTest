@@ -11,12 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         Grain g1, g2;
-        g2 = new Player.Controller();
-        g1 = new Grain() {
-            @Override
-            void sample() {
-            }
-        };
+
+        g2 = new controller();
         g1 = new Player();
         g1.sample();
         g2.sample();
@@ -25,6 +21,7 @@ public class Main {
 
 abstract class Grain {
     abstract void sample();
+    abstract void controller();
     AudioContext ac = new AudioContext();
 }
 
@@ -51,14 +48,14 @@ class Player extends Grain {
 
     }
 
-    static class Controller extends Player {
-        @Override
-        void sample() {
-            Sample sourceSample = null;
-            boolean sampleReady = false;
-            sampleReady = true;
-            GranularSamplePlayer gsp = new GranularSamplePlayer(ac, sourceSample);
-            while (sampleReady) {
+    @Override
+    void controller() {
+        AudioContext ac = new AudioContext();
+        Sample sourceSample = null;
+        boolean sampleReady = false;
+        GranularSamplePlayer gsp = new GranularSamplePlayer(ac, sourceSample);
+
+        while (sampleReady) {
 
                 System.out.println("Ready!");
                 Scanner scanner = new Scanner(System.in);
@@ -71,6 +68,6 @@ class Player extends Grain {
             }
         }
     }
-}
+
 
 
